@@ -16,6 +16,9 @@ class Cliente extends Model
             'dbname' => $dbFile,
         ]);
 
+        db()->query("PRAGMA journal_mode = WAL")->execute();
+        db()->query("PRAGMA busy_timeout = 5000")->execute();
+
         db()->query("
             CREATE TABLE IF NOT EXISTS clientes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,5 +40,42 @@ class Cliente extends Model
 
     public function Contar(){
         return db()->query("SELECT COUNT(*) AS total FROM clientes")->first()['total'] ?? 0;
+    }
+
+    public function Criar($dados)
+    {
+        return db()->insert('clientes')->params([
+            'nome' => $dados['nome'],
+            'cpf' => $dados['cpf'],
+            'telefone' => $dados['telefone'] ?? '',
+            'email' => $dados['email'] ?? '',
+            'endereco' => $dados['endereco'] ?? '',
+            'observacoes' => $dados['observacoes'] ?? ''
+        ])->execute();
+    }
+
+    public function BuscarPorId($id)
+    {
+        return db()->select('clientes')->where('id', $id)->first();
+    }
+
+    public function Atualizar($id, $dados)
+    {
+        return db()->update('clientes')
+            ->params([
+                'nome' => $dados['nome'],
+                'cpf' => $dados['cpf'],
+                'telefone' => $dados['telefone'] ?? '',
+                'email' => $dados['email'] ?? '',
+                'endereco' => $dados['endereco'] ?? '',
+                'observacoes' => $dados['observacoes'] ?? ''
+            ])
+            ->where('id', $id)
+            ->execute();
+    }
+
+    public function Deletar($id)
+    {
+        return db()->delete('clientes')->where('id', $id)->execute();
     }
 }

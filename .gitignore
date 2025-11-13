@@ -1,34 +1,79 @@
-# Packages
-composer.phar
-vendor
-node_modules
+# ===================================
+# Proteus ERP - Git Ignore
+# ===================================
 
-# Environment
-.env
-.env.backup
-.env.production
+# Dependências do Composer
+/vendor/
 
-# Build
-build
-dist
-compiled
+# Banco de Dados SQLite
+*.db
+*.db-shm
+*.db-wal
+osfacil.db*
 
-# System/Editor
-.fleet
-.idea
-.nova
-.vscode
-.zed
+# Variáveis de Ambiente (IMPORTANTE!)
 
-# Leaf
-.hana
-.alchemy
-hot
-storage/framework
-storage/logs
-storage/database
-public/storage
+
 
 # Logs
+storage/logs/*.log
+storage/logs/*.txt
+!storage/logs/.gitkeep
+
+# Cache de Views (Blade)
+storage/framework/views/*.php
+!storage/framework/views/.gitkeep
+
+# Cache
+storage/cache/*
+!storage/cache/.gitkeep
+
+# Sessões
+storage/sessions/*
+!storage/sessions/.gitkeep
+
+# Uploads
+storage/uploads/*
+!storage/uploads/.gitkeep
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Node Modules (caso adicione)
+node_modules/
 npm-debug.log
 yarn-error.log
+
+# Composer
+composer.phar
+composer.lock
+
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Backups
+backups/*.db
+backups/*.sql
+*.backup
+*.bak
+
+# Temporários
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# PHP
+*.php~
